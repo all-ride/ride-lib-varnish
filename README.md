@@ -1,21 +1,20 @@
-# Ride: Tokenizer Library
+# Ride: Varnish Library
 
 Varnish library of the PHP Ride framework.
 
 ## Code Sample
 
-Check this code sample to see how to use this library:
+Check this code sample to see some of this library's functionality:
     
     <?php
     
-    use ride\library\varnish\exception\VarnishException;
+    use ride\library\varnish\exception\V arnishException;
     use ride\library\varnish\VarnishAdmin;
-    
-    $varnish = new VarnishAdmin('localhost', 6082, 'your-secret');
+    use ride\library\varnish\VarnishPool;
     
     try {
-        // connect to the server
-        $varnish->connect();
+        // create a single server
+        $varnish = new VarnishAdmin('localhost', 6082, 'your-secret');
         
         // check if working process is running
         $varnish->isRunning(); // true | false
@@ -26,14 +25,20 @@ Check this code sample to see how to use this library:
         // stop the cache process, this will call isRunning() internally
         $varnish->stop();
         
+        // ban a url and everything underneath it
+        $varnish->banUrl('http://example.com/path', true);
+        
         // ban an expression
         $varnish->ban('req.http.host == "example.com" && req.url == '/path/to/page');
         
-        // ban a url and all underlying pages
-        $varnish->banUrl('http://example.com/path');
+        // create a pool of servers
+        $pool = new VarnishPool();
+        $pool->addServer($varnish);
+        $pool->addServer(new VarnishAdmin('example.com', 6082, 'sneaky sneaky');
         
-        // disconnect from the server
-        $varnish->disconnect();
+        // ban an url or expression on all servers
+        $pool->banUrl('http://example.com/path');
+        $pool->ban('req.http.host == "example.com" && req.url == '/path/to/page');
     } catch (VarnishException $exception) {
         // something went wrong
     }
