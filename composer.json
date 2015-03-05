@@ -1,7 +1,7 @@
 {
     "name": "ride/lib-varnish",
     "description": "Varnish library of the Ride framework.",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "authors": [
         {
             "name": "Joris Vandeweerd",
