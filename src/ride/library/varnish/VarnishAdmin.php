@@ -576,6 +576,10 @@ class VarnishAdmin implements VarnishServer {
             throw new VarnishException('Invalid URL provided: no host set');
         }
 
+        if (isset($parts['port'])) {
+            $host .= ':' . $parts['port'];
+        }
+
         if (isset($parts['path'])) {
             $path = $parts['path'];
         } else {
@@ -586,7 +590,7 @@ class VarnishAdmin implements VarnishServer {
             $path .= '?' . $parts['query'];
         }
 
-        $host = $this->escapeForRegex($parts['host']);
+        $host = $this->escapeForRegex($host);
         $path = $this->escapeForRegex($path);
 
         $expression = 'req.http.host ~ "^(?i)' . $host . '$" && req.url ~ "^' . $path . (!$recursive ? '$' : '') . '"';
