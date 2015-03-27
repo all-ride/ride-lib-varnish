@@ -436,7 +436,7 @@ class VarnishAdmin implements VarnishServer {
             $name = $this->generateConfigurationName();
         }
 
-        $this->execute('vcl.inline ' . $name . ' "' . addslashes($configuration)) . '"';
+        $this->execute('vcl.inline ' . $name . ' "' . addslashes($configuration) . '"');
 
         return $name;
     }
@@ -604,8 +604,8 @@ class VarnishAdmin implements VarnishServer {
      * @return Escaped regex value
      */
     protected function escapeForRegex($regex) {
-        $regex = str_replace('.', '\\.', $regex);
-        $regex = str_replace('?', '\\.', $regex);
+        // $regex = str_replace('.', '\\.', $regex);
+        $regex = str_replace('?', '\\?', $regex);
         $regex = str_replace('[', '\\[', $regex);
         $regex = str_replace(']', '\\]', $regex);
 
