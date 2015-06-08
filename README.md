@@ -39,7 +39,7 @@ try {
     
     // ban an url or expression on all servers
     $pool->banUrl('http://example.com/path');
-    $pool->ban('req.http.host == "example.com" && req.url == '/path/to/page');
+    $pool->ban('req.http.host' == "example.com" && req.url == '/path/to/page');
 } catch (VarnishException $exception) {
     // something went wrong
 }
