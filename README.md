@@ -30,7 +30,7 @@ try {
     $varnish->banUrl('http://example.com/path', true);
     
     // ban an expression
-    $varnish->ban('req.http.host == "example.com" && req.url == '/path/to/page');
+    $varnish->ban('req.http.host' == "example.com" && req.url == '/path/to/page');
     
     // create a pool of servers
     $pool = new VarnishPool();
