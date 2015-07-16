@@ -17,7 +17,7 @@ try {
     // create a single server
     $varnish = new VarnishAdmin('localhost', 6082, 'your-secret');
     
-    // check if working process is running
+    // check if worker process is running
     $varnish->isRunning(); // true | false
     
     // start the cache process, this will call isRunning() internally
@@ -26,21 +26,20 @@ try {
     // stop the cache process, this will call isRunning() internally
     $varnish->stop();
     
-    // ban a url and everything underneath it
+    // ban with a URL and everything underneath it
     $varnish->banUrl('http://example.com/path', true);
     
-    // ban an expression
-    $varnish->ban('req.http.host' == "example.com" && req.url == '/path/to/page');
+    // ban with an expression
+    $varnish->ban('req.http.host == "example.com" && req.url == "/path/to/page"');
     
     // create a pool of servers
     $pool = new VarnishPool();
     $pool->addServer($varnish);
     $pool->addServer(new VarnishAdmin('example.com', 6082, 'sneaky sneaky');
     
-    // ban an url or expression on all servers
+    // ban with a URL or with an expression on all servers
     $pool->banUrl('http://example.com/path');
-    $pool->ban('req.http.host' == "example.com" && req.url == '/path/to/page');
+    $pool->ban('req.http.host == "example.com" && req.url == '/path/to/page');
 } catch (VarnishException $exception) {
     // something went wrong
 }
-```

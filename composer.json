@@ -1,13 +1,16 @@
 {
     "name": "ride/lib-varnish",
     "description": "Varnish library of the Ride framework.",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "authors": [
         {
             "name": "Joris Vandeweerd",
             "email": "joris@statik.be"
         }
     ],
+    "require": {
+        "ride/lib-log": ">=0.3.0"
+    },
     "autoload": {
         "psr-0": {
             "ride\\library\\varnish\\": ["src/"]
