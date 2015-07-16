@@ -5,11 +5,11 @@ Varnish library of the PHP Ride framework.
 ## Code Sample
 
 Check this code sample to see some of this library's functionality:
-    
+
 ```php
 <?php
 
-use ride\library\varnish\exception\VarnishException;
+use ride\library\varnish\exception\V arnishException;
 use ride\library\varnish\VarnishAdmin;
 use ride\library\varnish\VarnishPool;
 
@@ -17,7 +17,7 @@ try {
     // create a single server
     $varnish = new VarnishAdmin('localhost', 6082, 'your-secret');
     
-    // check if working process is running
+    // check if worker process is running
     $varnish->isRunning(); // true | false
     
     // start the cache process, this will call isRunning() internally
