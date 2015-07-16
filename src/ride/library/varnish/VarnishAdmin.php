@@ -2,6 +2,7 @@
 
 namespace ride\library\varnish;
 
+use ride\library\log\Log;
 use ride\library\varnish\exception\VarnishException;
 
 use \Exception;
@@ -10,6 +11,12 @@ use \Exception;
  * Administration of a single Varnish server
  */
 class VarnishAdmin implements VarnishServer {
+
+    /**
+     * Source of log messages
+     * @var string
+     */
+    const LOG_SOURCE = 'varnish';
 
     /**
      * Hostname or IP address of the server
@@ -28,6 +35,12 @@ class VarnishAdmin implements VarnishServer {
      * @var string
      */
     protected $secret;
+
+    /**
+     * Instance of the log
+     * @var \ride\library\log\Log
+     */
+    protected $log;
 
     /**
      * Handler of the server connection
@@ -64,6 +77,15 @@ class VarnishAdmin implements VarnishServer {
      */
     public function __toString() {
         return $this->host . ':' . $this->port;
+    }
+
+    /**
+     * Sets the log instance
+     * @param \ride\library\log\Log $log
+     * @return null
+     */
+    public function setLog(Log $log) {
+        $this->log = $log;
     }
 
     /**
@@ -246,13 +268,21 @@ class VarnishAdmin implements VarnishServer {
             $this->connect();
         }
 
-        $this->write($command . "\n");
+        if ($this->log) {
+            $this->log->logDebug('Executing command on ' . $this->host . ':' . $this->port, $command, self::LOG_SOURCE);
+        }
 
+        $this->write($command . "\n");
         $response = $this->read($statusCode);
+
+        if ($this->log) {
+            $this->log->logDebug('Received response from ' . $this->host . ':' . $this->port, $statusCode, self::LOG_SOURCE);
+        }
+
         if ($requiredStatusCode !== null && $statusCode !== $requiredStatusCode) {
             $response = implode("\n > ", explode("\n", trim($response)));
 
-            throw new VarnishException('Could not execute command ' . $command . ': Command returned code ' . $statusCode . ' (' . $response . ')');
+            throw new VarnishException('Could not execute command on ' . $this->host . ' with port ' . $this->port . ': Command `' . $command . '` returned code ' . $statusCode, 0, null, $response);
         }
 
         return $response;
