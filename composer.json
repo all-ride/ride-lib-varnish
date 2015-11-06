@@ -2,7 +2,7 @@
     "name": "ride/lib-varnish",
     "description": "Varnish library of the Ride framework.",
     "license": "MIT",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "authors": [
         {
             "name": "Joris Vandeweerd",

@@ -638,6 +638,7 @@ class VarnishAdmin implements VarnishServer {
         $regex = str_replace('?', '\\?', $regex);
         $regex = str_replace('[', '\\[', $regex);
         $regex = str_replace(']', '\\]', $regex);
+        $regex = str_replace('*', '([\\\\w\\\\-])*', $regex);
 
         return $regex;
     }
