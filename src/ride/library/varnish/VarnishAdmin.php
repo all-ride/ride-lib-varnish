@@ -618,6 +618,8 @@ class VarnishAdmin implements VarnishServer {
 
         if (isset($parts['query'])) {
             $path .= '?' . $parts['query'];
+        } elseif (substr($url, -1) == '?') {
+            $path .= '?';
         }
 
         $host = $this->escapeForRegex($host);
@@ -635,9 +637,9 @@ class VarnishAdmin implements VarnishServer {
      */
     protected function escapeForRegex($regex) {
         // $regex = str_replace('.', '\\.', $regex);
-        $regex = str_replace('?', '\\?', $regex);
-        $regex = str_replace('[', '\\[', $regex);
-        $regex = str_replace(']', '\\]', $regex);
+        $regex = str_replace('?', '\\\\?', $regex);
+        $regex = str_replace('[', '\\\\[', $regex);
+        $regex = str_replace(']', '\\\\]', $regex);
         $regex = str_replace('*', '([\\\\w\\\\-])*', $regex);
 
         return $regex;
