@@ -8,11 +8,11 @@ Varnish library of the PHP Ride framework.
 
 The _VarnishServer_ interface is used to manipulate a single Varnish server or a pool of servers transparantly.
 
-#### VarnishAdmin
+### VarnishAdmin
 
 The _VarnishAdmin_ class connects to a single Varnish server directly to send commands.
 
-#### VarnishPool
+### VarnishPool
 
 The _VarnishPool_ class can be used to create a pool of different _VarnishAdmin_ instances.
 All commands of the _VarnishServer_ interface will be invoked on all available servers in the pool.
@@ -58,6 +58,7 @@ try {
 } catch (VarnishException $exception) {
     // something went wrong
 }
+```
 
 ### Implementations
 
