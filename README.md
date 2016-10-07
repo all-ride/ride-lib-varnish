@@ -2,6 +2,21 @@
 
 Varnish library of the PHP Ride framework.
 
+## What's In This Library
+
+### VarnishServer
+
+The _VarnishServer_ interface is used to manipulate a single Varnish server or a pool of servers transparantly.
+
+### VarnishAdmin
+
+The _VarnishAdmin_ class connects to a single Varnish server directly to send commands.
+
+### VarnishPool
+
+The _VarnishPool_ class can be used to create a pool of different _VarnishAdmin_ instances.
+All commands of the _VarnishServer_ interface will be invoked on all available servers in the pool.
+
 ## Code Sample
 
 Check this code sample to see some of this library's functionality:
@@ -43,3 +58,20 @@ try {
 } catch (VarnishException $exception) {
     // something went wrong
 }
+```
+
+### Implementations
+
+For more examples, you can check the following implementations of this library:
+- [ride/app-varnish](https://github.com/all-ride/ride-app-varnish)
+- [ride/wba-varnish](https://github.com/all-ride/ride-wba-varnish)
+- [ride/wba-cms-varnish](https://github.com/all-ride/ride-wba-cms-varnish)
+- [ride/web-cms-varnish](https://github.com/all-ride/ride-web-cms-varnish)
+
+## Installation
+
+You can use [Composer](http://getcomposer.org) to install this library.
+
+```
+composer require ride/lib-varnish
+```
