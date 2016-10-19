@@ -165,7 +165,7 @@ class VarnishAdmin implements VarnishServer {
 
             try {
                 $challenge = substr($banner, 0, 32);
-                $challengeResponse = hash('sha256', $challenge . "\n" . $this->secret . "\n" . $challenge . "\n");
+                $challengeResponse = hash('sha256', $challenge . "\n" . $this->secret . $challenge . "\n");
 
                 $banner = $this->execute('auth ' . $challengeResponse, $statusCode, 200);
             } catch (Exception $exception){
