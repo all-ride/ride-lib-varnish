@@ -52,7 +52,7 @@ class VarnishAdmin implements VarnishServer {
      * Constructs a new instance
      * @param string $host Hostname or IP address of the server
      * @param integer $port Port the server listens to
-     * @param string $secret Secret string for authentication
+     * @param string $secret Contents of the secret file
      * @return null
      */
     public function __construct($host = '127.0.0.1', $port = 6082, $secret = null) {
@@ -105,8 +105,8 @@ class VarnishAdmin implements VarnishServer {
     }
 
     /**
-     * Sets the server to authenticate with this server
-     * @param string $secret Secret to use for authentication
+     * Sets the secret to authenticate with this server
+     * @param string $secret Contents of the secret file
      * @return null
      */
     public function setSecret($secret) {
@@ -114,8 +114,8 @@ class VarnishAdmin implements VarnishServer {
     }
 
     /**
-     * Gets the secret of this server
-     * @return string|null
+     * Gets the secret for server authentication
+     * @return string|null Contents of the secret file if set, null otherwise
      */
     public function getSecret() {
         return $this->secret;
@@ -165,7 +165,7 @@ class VarnishAdmin implements VarnishServer {
 
             try {
                 $challenge = substr($banner, 0, 32);
-                $challengeResponse = hash('sha256', $challenge . "\n" . $this->secret . "\n" . $challenge . "\n");
+                $challengeResponse = hash('sha256', $challenge . "\n" . $this->secret . $challenge . "\n");
 
                 $banner = $this->execute('auth ' . $challengeResponse, $statusCode, 200);
             } catch (Exception $exception){
