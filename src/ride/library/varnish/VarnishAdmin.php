@@ -466,7 +466,7 @@ class VarnishAdmin implements VarnishServer {
             $name = $this->generateConfigurationName();
         }
 
-        $this->execute('vcl.inline ' . $name . ' "' . addslashes($configuration) . '"');
+        $this->execute('vcl.inline ' . $name . " << EOVCL\n" . $configuration . "\nEOVCL");
 
         return $name;
     }
